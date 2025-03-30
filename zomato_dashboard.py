@@ -19,6 +19,20 @@ if not os.path.exists(output_file):
     gdown.download(url, output_file, quiet=False)
 
 df = pd.read_csv(output_file, encoding="latin-1")
+df = pd.read_csv(output_file, encoding="latin-1", low_memory=False)  
+
+# Print all column names for debugging
+print("Columns in DataFrame:", df.columns.tolist())
+
+# Normalize column names to avoid case sensitivity or extra spaces
+df.columns = df.columns.str.strip().str.lower().str.replace(' ', '_')
+
+# Rename columns if needed
+df.rename(columns={'listed_in(city)': 'location'}, inplace=True)
+
+# Print again to verify
+print("Updated Columns in DataFrame:", df.columns.tolist())
+
 
 # Standardize column names
 df.columns = df.columns.str.strip().str.lower()
