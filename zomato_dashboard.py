@@ -21,24 +21,24 @@ if not os.path.exists(output_file):
 # Load Data
 df = pd.read_csv(output_file, encoding="latin-1", low_memory=False)
 
-# Print all column names before renaming
-print("Columns before renaming:", df.columns.tolist())
+# Debug: Print column names before renaming
+print("🚨 Columns before renaming:", df.columns.tolist())
 
 # Normalize column names
 df.columns = df.columns.str.strip().str.lower().str.replace(' ', '_')
 
-# Ensure 'listed_in(city)' is renamed to 'location'
+# Rename 'listed_in(city)' to 'location' (only if it exists)
 if 'listed_in(city)' in df.columns:
     df.rename(columns={'listed_in(city)': 'location'}, inplace=True)
 else:
     print("🚨 'listed_in(city)' column is missing! Available columns:", df.columns.tolist())
 
-# Debugging: Print final column names
-print("Final DataFrame Columns:", df.columns.tolist())
+# Debug: Print final column names
+print("✅ Final DataFrame Columns:", df.columns.tolist())
 
-# Verify 'location' before using it
+# Verify 'location' column
 if 'location' not in df.columns:
-    raise KeyError(f"🚨 The 'location' column is missing! Available columns: {df.columns.tolist()}")
+    raise KeyError(f"🚨 The 'location' column is still missing! Available columns: {df.columns.tolist()}")
 
 # Streamlit Sidebar Filter
 selected_location = st.sidebar.multiselect("Select Location", df['location'].unique())
