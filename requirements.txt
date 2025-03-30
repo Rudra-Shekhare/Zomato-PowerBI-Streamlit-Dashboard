@@ -1,3 +1,17 @@
 streamlit
+pandas
+numpy
 matplotlib
-pandas  # If you're using pandas as well
+seaborn
+plotly
+altair
+scipy
+requests
+scikit-learn  
+openpyxl 
+beautifulsoup4  
+lxml  
+streamlit-option-menu  # For sidebar navigation
+streamlit-aggrid  # For interactive tables
+folium  # If using maps
+geopandas  # If working with geographic data
