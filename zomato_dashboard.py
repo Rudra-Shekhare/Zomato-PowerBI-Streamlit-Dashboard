@@ -18,8 +18,10 @@ if not os.path.exists(output_file):
     url = f"https://drive.google.com/uc?id={file_id}"
     gdown.download(url, output_file, quiet=False)
 
-# Load the CSV
 df = pd.read_csv(output_file, encoding="latin-1")
+
+# Standardize column names
+df.columns = df.columns.str.strip().str.lower()
 
 
 # Data Cleaning
