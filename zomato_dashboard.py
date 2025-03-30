@@ -32,7 +32,7 @@ df['rate'] = pd.to_numeric(df['rate'], errors='coerce')
 df['rate'] = df['rate'].fillna(df['rate'].mean())
 
 # Convert Cost column
-df['approx_cost(for two people)'] = df['approx_cost(for two people)'].astype(str).str.replace(',', '').astype(float)
+df['approx_cost(for two people)'] = df.get('approx_cost(for two people)', pd.Series(dtype=str)).astype(str).str.replace(',', '').astype(float)
 df.rename(columns={'approx_cost(for two people)': 'Cost for Two'}, inplace=True)
 
 # Streamlit UI
