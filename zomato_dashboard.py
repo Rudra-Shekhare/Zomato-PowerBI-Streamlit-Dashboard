@@ -39,6 +39,24 @@ print("Final DataFrame Columns:", df.columns.tolist())
 # Verify if 'location' column exists
 if 'location' not in df.columns:
     raise KeyError("🚨 The 'location' column is missing! Check your column names:", df.columns.tolist())
+# Normalize column names to lowercase and remove spaces
+df.columns = df.columns.str.strip().str.lower().str.replace(' ', '_')
+
+# Check and rename 'listed_in(city)' to 'location'
+if 'listed_in(city)' in df.columns:
+    df.rename(columns={'listed_in(city)': 'location'}, inplace=True)
+else:
+    print("🚨 'listed_in(city)' column is missing! Available columns:", df.columns.tolist())
+
+# Debugging step: Print final column names
+print("Final DataFrame Columns:", df.columns.tolist())
+
+# Verify 'location' column before using it
+if 'location' not in df.columns:
+    raise KeyError("🚨 The 'location' column is still missing! Check dataset structure.")
+
+# Streamlit Sidebar Filter
+selected_location = st.sidebar.multiselect("Select Location", df['location'].unique())
 
 
 # Data Cleaning
