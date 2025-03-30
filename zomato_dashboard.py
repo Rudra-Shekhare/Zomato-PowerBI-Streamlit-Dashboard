@@ -27,15 +27,18 @@ print("Columns in DataFrame:", df.columns.tolist())
 # Normalize column names to avoid case sensitivity or extra spaces
 df.columns = df.columns.str.strip().str.lower().str.replace(' ', '_')
 
-# Rename columns if needed
+# Normalize column names to avoid case sensitivity or extra spaces
+df.columns = df.columns.str.strip().str.lower().str.replace(' ', '_')
+
+# Ensure correct renaming of 'listed_in(city)' to 'location'
 df.rename(columns={'listed_in(city)': 'location'}, inplace=True)
 
-# Print again to verify
-print("Updated Columns in DataFrame:", df.columns.tolist())
+# Debug: Check available columns
+print("Final DataFrame Columns:", df.columns.tolist())
 
-
-# Standardize column names
-df.columns = df.columns.str.strip().str.lower()
+# Verify if 'location' column exists
+if 'location' not in df.columns:
+    raise KeyError("🚨 The 'location' column is missing! Check your column names:", df.columns.tolist())
 
 
 # Data Cleaning
