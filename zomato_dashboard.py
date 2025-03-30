@@ -40,6 +40,7 @@ st.title("🍽️ Zomato Restaurant Dashboard")
 st.sidebar.header("Filter Options")
 
 # Sidebar filters
+df.rename(columns={'Location': 'location'}, inplace=True)
 selected_location = st.sidebar.multiselect("Select Location", df['location'].unique())
 selected_cuisine = st.sidebar.multiselect("Select Cuisine", df['cuisines'].unique())
 
