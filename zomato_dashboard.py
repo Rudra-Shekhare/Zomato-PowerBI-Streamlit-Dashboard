@@ -27,7 +27,7 @@ df.drop(columns=['address', 'phone', 'url', 'menu_item', 'dish_liked'], inplace=
 df.dropna(inplace=True)
 
 # Convert Rating column
-df['rate'] = df['rate'].astype(str).str.replace('/5', '', regex=False)
+df['rate'] = df.get('rate', pd.Series(dtype=str)).astype(str).str.replace('/5', '', regex=False)
 df['rate'] = pd.to_numeric(df['rate'], errors='coerce')
 df['rate'] = df['rate'].fillna(df['rate'].mean())
 
