@@ -7,11 +7,17 @@ import plotly.express as px
 import folium
 from streamlit_folium import folium_static
 
-url = "https://drive.google.com/uc?id=1jM7pv5naAsbMis4nkqYNvWN0jEQSooAY"
-df = pd.read_csv(url, encoding="latin-1")
+# Google Drive file ID
+file_id = "1jM7pv5naAsbMis4nkqYNvWN0jEQSooAY"
+output_file = "zomato.csv"
 
-# Check if the file loads correctly
-print(df.head())  # If running locally
+# Check if file already exists to avoid repeated downloads
+if not os.path.exists(output_file):
+    url = f"https://drive.google.com/uc?id={file_id}"
+    gdown.download(url, output_file, quiet=False)
+
+# Load the CSV
+df = pd.read_csv(output_file, encoding="latin-1")
 
 
 # Data Cleaning
