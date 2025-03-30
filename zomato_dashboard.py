@@ -18,46 +18,30 @@ if not os.path.exists(output_file):
     url = f"https://drive.google.com/uc?id={file_id}"
     gdown.download(url, output_file, quiet=False)
 
-df = pd.read_csv(output_file, encoding="latin-1")
-df = pd.read_csv(output_file, encoding="latin-1", low_memory=False)  
+# Load Data
+df = pd.read_csv(output_file, encoding="latin-1", low_memory=False)
 
-# Print all column names for debugging
-print("Columns in DataFrame:", df.columns.tolist())
+# Print all column names before renaming
+print("Columns before renaming:", df.columns.tolist())
 
-# Normalize column names to avoid case sensitivity or extra spaces
+# Normalize column names
 df.columns = df.columns.str.strip().str.lower().str.replace(' ', '_')
 
-# Normalize column names to avoid case sensitivity or extra spaces
-df.columns = df.columns.str.strip().str.lower().str.replace(' ', '_')
-
-# Ensure correct renaming of 'listed_in(city)' to 'location'
-df.rename(columns={'listed_in(city)': 'location'}, inplace=True)
-
-# Debug: Check available columns
-print("Final DataFrame Columns:", df.columns.tolist())
-
-# Verify if 'location' column exists
-if 'location' not in df.columns:
-    raise KeyError("🚨 The 'location' column is missing! Check your column names:", df.columns.tolist())
-# Normalize column names to lowercase and remove spaces
-df.columns = df.columns.str.strip().str.lower().str.replace(' ', '_')
-
-# Check and rename 'listed_in(city)' to 'location'
+# Ensure 'listed_in(city)' is renamed to 'location'
 if 'listed_in(city)' in df.columns:
     df.rename(columns={'listed_in(city)': 'location'}, inplace=True)
 else:
     print("🚨 'listed_in(city)' column is missing! Available columns:", df.columns.tolist())
 
-# Debugging step: Print final column names
+# Debugging: Print final column names
 print("Final DataFrame Columns:", df.columns.tolist())
 
-# Verify 'location' column before using it
+# Verify 'location' before using it
 if 'location' not in df.columns:
-    raise KeyError("🚨 The 'location' column is still missing! Check dataset structure.")
+    raise KeyError(f"🚨 The 'location' column is missing! Available columns: {df.columns.tolist()}")
 
 # Streamlit Sidebar Filter
 selected_location = st.sidebar.multiselect("Select Location", df['location'].unique())
-
 
 # Data Cleaning
 df.drop(columns=['address', 'phone', 'url', 'menu_item', 'dish_liked'], inplace=True, errors='ignore')
