@@ -7,6 +7,7 @@ plotly
 altair
 scipy
 requests
+streamlit-folium
 scikit-learn  
 openpyxl 
 beautifulsoup4  
