@@ -16,3 +16,4 @@ streamlit-option-menu  # For sidebar navigation
 streamlit-aggrid  # For interactive tables
 folium  # If using maps
 geopandas  # If working with geographic data
+gdown
