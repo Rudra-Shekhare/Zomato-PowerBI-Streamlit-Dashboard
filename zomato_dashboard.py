@@ -7,9 +7,11 @@ import plotly.express as px
 import folium
 from streamlit_folium import folium_static
 
-# Load the dataset
-df = pd.read_csv("/Users/rudrashekhare/Downloads/zomato.csv", encoding='latin-1')
+uploaded_file = st.file_uploader("Upload Zomato Dataset (CSV)", type="csv")
 
+if uploaded_file is not None:
+    df = pd.read_csv(uploaded_file, encoding='latin-1')
+    st.write(df.head())  # Display sample data
 
 
 # Data Cleaning
