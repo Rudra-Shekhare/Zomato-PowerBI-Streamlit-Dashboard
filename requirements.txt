@@ -1,0 +1,3 @@
+streamlit
+matplotlib
+pandas  # If you're using pandas as well
